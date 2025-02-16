@@ -52,7 +52,7 @@ _keyboard_confirm() {
     if [ "$setkeyboard" == "0" ]; then
 
         # Default layout and variants
-        keyboard_layout="us"
+        keyboard_layout="fr"
         keyboard_variant=""
 
         _confirmKeyboard

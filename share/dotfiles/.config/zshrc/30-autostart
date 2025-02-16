@@ -12,6 +12,7 @@ cat ~/.cache/wal/sequences
 # -----------------------------------------------------
 if [[ $(tty) == *"pts"* ]]; then
     fastfetch --config examples/13
+    #pokemon-colorscripts -r
 else
     echo
     if [ -f /bin/qtile ]; then

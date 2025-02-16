@@ -1,5 +1,5 @@
 optdepends=(
-    "nautilus"
-    "yazi"
-    "dolphin"
+  "nautilus"
+  "yazi"
+  "dolphin"
 )
