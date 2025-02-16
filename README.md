@@ -1,4 +1,4 @@
-# ML4W Dotfiles for Hyprland
+# Couvbat ML4W Dotfiles for Hyprland
 > Rolling Release Version 2.9.8.1
 
 An advanced configuration of Hyprland for Arch Linux based distributions. This package includes an installation script to install and set up the required components.
@@ -24,24 +24,10 @@ You can find the Hyprland Installation instructions here: https://wiki.hyprland.
 ### Arch Linux (based)
 
 ```shell
-bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/setup-arch.sh)
+bash <(curl -s https://raw.githubusercontent.com/Couvbat/dotfiles/main/setup-arch.sh)
 ```
 
 YouTube Video https://youtu.be/sVFnd5LAYAc
-
-You can also install the main release with your preferred AUR helper.
-
-```shell
-yay -S ml4w-hyprland
-ml4w-hyprland-setup
-```
-
-You can install the rolling release with
-
-```shell
-yay -S ml4w-hyprland-git
-ml4w-hyprland-setup
-```
 
 Please rebuild all packages to ensure that you get the latest commit.
 
