@@ -4,7 +4,7 @@
 _writeLogHeader "Copy"
 
 _copy_confirm() {
-    if gum confirm "Do you want to install the prepared ML4W Dotfiles now?"; then
+    if gum confirm "Do you want to install the prepared Couvbat ML4W Dotfiles now?"; then
         _writeLog 1 "Copy started"
         if [ ! -d ~/$dot_folder ]; then
             mkdir -p ~/$dot_folder

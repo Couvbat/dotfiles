@@ -25,13 +25,13 @@ _define_dotfiles_folder() {
 }
 
 _confirm_dotfiles_folder() {
-    _writeLogTerminal 0 "The ML4W Dotfiles will be installed in ~/$dot_folder"
+    _writeLogTerminal 0 "The Couvbat ML4W Dotfiles will be installed in ~/$dot_folder"
     if [ -d ~/$dot_folder ]; then
         _writeLogTerminal 0 "The folder ~/$dot_folder already exists and the files will be updated."
     fi
     echo
     if gum confirm "Do you want use this folder?"; then
-        _writeLogTerminal 1 "ML4W Dotfiles will be installed in ~/$dot_folder"
+        _writeLogTerminal 1 "Couvbat ML4W Dotfiles will be installed in ~/$dot_folder"
     elif [ $? -eq 130 ]; then
         _writeCancel
         exit 130

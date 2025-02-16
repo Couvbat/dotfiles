@@ -50,4 +50,4 @@ echo ":: $lib_directory installed"
 
 echo
 
-echo ":: ML4W Dotfiles installed successfully"
+echo ":: Couvbat ML4W Dotfiles installed successfully"

@@ -10,7 +10,7 @@ echo
 _commandExists() {
     package="$1"
     if ! type $package >/dev/null 2>&1; then
-        echo ":: ERROR: $package doesn't exists. Please install it with yay -S $2"
+        echo ":: ERROR: $package doesn't exists. Please install it with paru -S $2"
     else
         echo ":: OK: $package found."
     fi

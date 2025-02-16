@@ -117,7 +117,7 @@ _define_dotfiles_folder() {
 
 _confirm_dotfiles_folder() {
     if [ -d ~/$dot_folder ] && [ -d ~/$dot_folder/.config/ml4w ]; then
-        echo ":: ML4W Dotfiles folder ~/$dot_folder selected."
+        echo ":: Couvbat ML4W Dotfiles folder ~/$dot_folder selected."
         echo
         if gum confirm "Do you want to activate now?"; then
             _activate_dotfiles_folder
@@ -126,7 +126,7 @@ _confirm_dotfiles_folder() {
             exit
         fi
     else
-        echo "ERROR: The folder doesn't exits or isn't a compatible ML4W Dotfiles installation."
+        echo "ERROR: The folder doesn't exits or isn't a compatible Couvbat ML4W Dotfiles installation."
         echo "Please update the folder name!"
         echo
         _define_dotfiles_folder
@@ -134,7 +134,7 @@ _confirm_dotfiles_folder() {
 }
 
 figlet -f smslant "Activate"
-echo ":: You can activate an exiting ML4W Dotfiles installation."
+echo ":: You can activate an exiting Couvbat ML4W Dotfiles installation."
 echo
 echo ":: Please enter the name of the installation folder starting from your home directory."
 echo ":: (e.g., dotfiles or Documents/mydotfiles, ...)"

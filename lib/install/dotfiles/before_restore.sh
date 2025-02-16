@@ -36,8 +36,6 @@ if [ -d ~/$dot_folder/.settings ]; then
         _del_folder ~/$dot_folder/gtk
         _del_folder ~/$dot_folder/eww
 
-        # Replace Quicklink
-        sed -i -e 's/dotfiles\/.settings/.config\/ml4w\/settings/g' ~/$dot_folder/.config/ml4w/settings/waybar-quicklinks.json
     fi
 fi
 

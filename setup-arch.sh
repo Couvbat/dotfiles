@@ -4,7 +4,7 @@ clear
 # -----------------------------------------------------
 # Repository
 # -----------------------------------------------------
-repo="mylinuxforwork/dotfiles"
+repo="Couvbat/dotfiles"
 
 # -----------------------------------------------------
 # Download Folder
@@ -70,16 +70,16 @@ _installPackages() {
     sudo pacman --noconfirm -S "${toInstall[@]}"
 }
 
-# install yay if needed
-_installYay() {
+# install paru if needed
+_installParu() {
     _installPackages "base-devel"
     SCRIPT=$(realpath "$0")
     temp_path=$(dirname "$SCRIPT")
-    git clone https://aur.archlinux.org/yay.git $download_folder/yay
-    cd $download_folder/yay
+    git clone https://github.com/Morganamilo/paru.git $download_folder/paru
+    cd $download_folder/paru
     makepkg -si
     cd $temp_path
-    echo ":: yay has been installed successfully."
+    echo ":: paru has been installed successfully."
 }
 
 # Required packages for the installer
@@ -106,7 +106,7 @@ cat <<"EOF"
 /___/_//_/___/\__/\_,_/_/_/\__/_/
 
 EOF
-echo "ML4W Dotfiles for Hyprland"
+echo "Couvbat ML4W Dotfiles for Hyprland"
 echo -e "${NONE}"
 while true; do
     read -p "DO YOU WANT TO START THE INSTALLATION NOW? (Yy/Nn): " yn
@@ -164,27 +164,27 @@ echo
 echo ":: Checking that required packages are installed..."
 _installPackages "${packages[@]}"
 
-# Install yay if needed
-if _checkCommandExists "yay"; then
-    echo ":: yay is already installed"
+# Install paru if needed
+if _checkCommandExists "paru"; then
+    echo ":: paru is already installed"
 else
-    echo ":: The installer requires yay. yay will be installed now"
-    _installYay
+    echo ":: The installer requires paru. paru will be installed now"
+    _installParu
 fi
 echo
 
 # Select the dotfiles version
 echo "Please choose between: "
-echo "- ML4W Dotfiles for Hyprland $latest_version (latest stable release)"
-echo "- ML4W Dotfiles for Hyprland Rolling Release (main branch including the latest commits)"
+echo "- Couvbat ML4W Dotfiles for Hyprland $latest_version (latest stable release)"
+echo "- Couvbat ML4W Dotfiles for Hyprland Rolling Release (main branch including the latest commits)"
 echo
 version=$(gum choose "main-release" "rolling-release" "CANCEL")
 if [ "$version" == "main-release" ]; then
     echo ":: Installing Main Release"
-    yay -S --noconfirm ml4w-hyprland
+    paru -S --noconfirm ml4w-hyprland
 elif [ "$version" == "rolling-release" ]; then
     echo ":: Installing Rolling Release"
-    yay -S ml4w-hyprland-git
+    paru -S ml4w-hyprland-git
 elif [ "$version" == "CANCEL" ]; then
     echo ":: Setup canceled"
     exit 130

@@ -185,12 +185,12 @@ while getopts "m:p:vh" opt; do
         m) install_mode="$OPTARG" ;;
         p) install_platform="$OPTARG" ;;
         v)
-            echo ":: ML4W Dotfiles for Hyprland Version $version"
+            echo ":: Couvbat ML4W Dotfiles for Hyprland Version $version"
             exit
             ;;
 
         h)
-            echo ":: ML4W Dotfiles for Hyprland Version $version"
+            echo ":: Couvbat ML4W Dotfiles for Hyprland Version $version"
             echo "-m install: Will install the package into the target directories"
             echo "-m full: Run full installation"
             echo "-m nvidia: Run full installation with NVIDA Driver installation"
@@ -203,7 +203,7 @@ while getopts "m:p:vh" opt; do
             echo "-m activate: Activate another existing dotfiles folder"
             echo "-p arch: Installation for Arch based platforms"
             echo "-p fedora: Installation for Fedora based platforms"
-            echo "-v: Current version of the ML4W Dotfiles for Hyprland"
+            echo "-v: Current version of the Couvbat ML4W Dotfiles for Hyprland"
             exit
             ;;
     esac

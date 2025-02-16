@@ -9,11 +9,11 @@ NONE='\033[0m'
 # Header
 echo -e "${GREEN}"
 figlet -f smslant "Uninstaller"
-echo "for ML4W Dotfiles"
+echo "for Couvbat ML4W Dotfiles"
 echo
 echo -e "${NONE}"
-echo "This script will support you to uninstall the ML4W Dotfiles in ~/$dot_folder from your system."
-echo "Only the ML4W Dotfiles related files and folders will be removed."
+echo "This script will support you to uninstall the Couvbat ML4W Dotfiles in ~/$dot_folder from your system."
+echo "Only the Couvbat ML4W Dotfiles related files and folders will be removed."
 echo "Packages are not uninstalled. You have to uninstall packages manually if needed."
 echo "Your login manager (display manager) will stay untouched. Please remove it manually if needed."
 echo
@@ -118,7 +118,7 @@ if test -L ~/.config/xsettingsd; then
 fi
 echo ":: Symlinks removed"
 
-# Uninstall the ML4W Apps
+# Uninstall the Couvbat ML4W Apps
 
 flatpak uninstall com.ml4w.welcome
 flatpak uninstall com.ml4w.calendar
@@ -139,7 +139,7 @@ if [ -f /usr/bin/$app_name ]; then
     sudo rm /usr/bin/$app_name
 fi
 
-echo ":: ML4W Apps removed"
+echo ":: Couvbat ML4W Apps removed"
 
 if gum confirm "DO YOU WANT TO RESTORE OLD CONFIGURATIONS FROM ~/.ml4w-hyprland/backup/config TO ~/.config?"; then
     rsync -a ~/.ml4w-hyprland/backup/config/ ~/.config/
@@ -162,7 +162,7 @@ else
 fi
 
 figlet -f smslant "DONE"
-echo ":: The ML4W Dotfiles have been removed."
+echo ":: The Couvbat ML4W Dotfiles have been removed."
 echo
 echo ":: A reboot of your system is recommended."
 echo

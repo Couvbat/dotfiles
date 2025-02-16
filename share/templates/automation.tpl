@@ -6,7 +6,7 @@
 # AUR HELPER
 # Define the aur helper when using Arch
 # -----------------------------------------------------
-# automation_aur="yay"
+# automation_aur="paru"
 
 # -----------------------------------------------------
 # DOTFILES INSTALLATION FOLDER

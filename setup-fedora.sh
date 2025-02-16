@@ -85,7 +85,7 @@ cat <<"EOF"
 /___/_//_/___/\__/\_,_/_/_/\__/_/
 
 EOF
-echo "ML4W Dotfiles for Hyprland"
+echo "Couvbat ML4W Dotfiles for Hyprland"
 echo -e "${NONE}"
 while true; do
     read -p "DO YOU WANT TO START THE INSTALLATION NOW? (Yy/Nn): " yn
@@ -144,8 +144,8 @@ bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/sh
 echo
 # Select the dotfiles version
 echo "Please choose between: "
-echo "- ML4W Dotfiles for Hyprland $latest_version (latest stable release)"
-echo "- ML4W Dotfiles for Hyprland Rolling Release (main branch including the latest commits)"
+echo "- Couvbat ML4W Dotfiles for Hyprland $latest_version (latest stable release)"
+echo "- Couvbat ML4W Dotfiles for Hyprland Rolling Release (main branch including the latest commits)"
 echo
 version=$(gum choose "main-release" "rolling-release" "cancel")
 if [ "$version" == "main-release" ]; then

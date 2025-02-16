@@ -1,100 +1,86 @@
-#!/bin/bash
-#    ____         __       ____               __     __
-#   /  _/__  ___ / /____ _/ / / __ _____  ___/ /__ _/ /____ ___
-#  _/ // _ \(_-</ __/ _ `/ / / / // / _ \/ _  / _ `/ __/ -_|_-<
-# /___/_//_/___/\__/\_,_/_/_/  \_,_/ .__/\_,_/\_,_/\__/\__/___/
-#                                 /_/
-#
+#!/usr/bin/env bash
 
-sleep 1
-clear
-install_platform="$(cat ~/.config/ml4w/settings/platform.sh)"
-figlet -f smslant "Updates"
-echo
-
-# ------------------------------------------------------
-# Confirm Start
-# ------------------------------------------------------
-
-if gum confirm "DO YOU WANT TO START THE UPDATE NOW?"; then
-    echo
-    echo ":: Update started."
-elif [ $? -eq 130 ]; then
-    exit 130
-else
-    echo
-    echo ":: Update canceled."
-    exit
+# Check release
+if [ ! -f /etc/arch-release ]; then
+  exit 0
 fi
 
-_isInstalled() {
-    package="$1"
-    case $install_platform in
-        arch)
-            check="$($aur_helper -Qs --color always "${package}" | grep "local" | grep "${package} ")"
-            ;;
-        fedora)
-            check="$(dnf repoquery --quiet --installed ""${package}*"")"
-            ;;
-        *) ;;
-    esac
+pkg_installed() {
+  local pkg=$1
 
-    if [ -n "${check}" ]; then
-        echo 0 #'0' means 'true' in Bash
-        return #true
-    fi
-    echo 1 #'1' means 'false' in Bash
-    return #false
+  if pacman -Qi "${pkg}" &>/dev/null; then
+    return 0
+  elif pacman -Qi "flatpak" &>/dev/null && flatpak info "${pkg}" &>/dev/null; then
+    return 0
+  elif command -v "${pkg}" &>/dev/null; then
+    return 0
+  else
+    return 1
+  fi
 }
 
-# Check if platform is supported
-case $install_platform in
-    arch)
-        aur_helper="$(cat ~/.config/ml4w/settings/aur.sh)"
+get_aur_helper() {
+  if pkg_installed yay; then
+    aur_helper="yay"
+  elif pkg_installed paru; then
+    aur_helper="paru"
+  fi
+}
 
-        if [[ $(_isInstalled "timeshift") == "0" ]]; then
-            echo
-            if gum confirm "DO YOU WANT TO CREATE A SNAPSHOT?"; then
-                echo
-                c=$(gum input --placeholder "Enter a comment for the snapshot...")
-                sudo timeshift --create --comments "$c"
-                sudo timeshift --list
-                sudo grub-mkconfig -o /boot/grub/grub.cfg
-                echo ":: DONE. Snapshot $c created!"
-                echo
-            elif [ $? -eq 130 ]; then
-                echo ":: Snapshot skipped."
-                exit 130
-            else
-                echo ":: Snapshot skipped."
-            fi
-            echo
-        fi
+get_aur_helper
+export -f pkg_installed
 
-        $aur_helper
+# Trigger upgrade
+if [ "$1" == "up" ]; then
+  trap 'pkill -RTMIN+20 waybar' EXIT
+  command="
+    $0 upgrade
+    ${aur_helper} -Syu
+    if pkg_installed flatpak; then flatpak update; fi
+    printf '\n'
+    read -n 1 -p 'Press any key to continue...'
+    "
+  kitty --title "󰞒  System Update" sh -c "${command}"
+fi
 
-        if [[ $(_isInstalled "flatpak") == "0" ]]; then
-            flatpak upgrade
-        fi
-        ;;
-    fedora)
-        sudo dnf upgrade
-        if [[ $(_isInstalled "flatpak") == "0" ]]; then
-            flatpak upgrade
-        fi
-        ;;
-    *)
-        echo ":: ERROR - Platform not supported"
-        echo "Press [ENTER] to close."
-        read
-        ;;
-esac
+# Check for AUR updates
+if [ -n "$aur_helper" ]; then
+  aur_updates=$(${aur_helper} -Qua | grep -c '^')
+else
+  aur_updates=0
+fi
 
-notify-send "Update complete"
-echo
-echo ":: Update complete"
-echo
-echo
+# Check for official repository updates
+official_updates=$(
+  (while pgrep -x checkupdates >/dev/null; do sleep 1; done)
+  checkupdates | grep -c '^'
+)
 
-echo "Press [ENTER] to close."
-read
+# Check for Flatpak updates
+if pkg_installed flatpak; then
+  flatpak_updates=$(flatpak remote-ls --updates | grep -c '^')
+else
+  flatpak_updates=0
+fi
+
+# Calculate total available updates
+total_updates=$((official_updates + aur_updates + flatpak_updates))
+
+# Handle formatting based on AUR helper
+if [ "$aur_helper" == "yay" ]; then
+  [ "${1}" == upgrade ] && printf "Official:  %-10s\nAUR ($aur_helper): %-10s\nFlatpak:   %-10s\n\n" "$official_updates" "$aur_updates" "$flatpak_updates" && exit
+
+  tooltip="Official:  $official_updates\nAUR ($aur_helper): $aur_updates\nFlatpak:   $flatpak_updates"
+
+elif [ "$aur_helper" == "paru" ]; then
+  [ "${1}" == upgrade ] && printf "Official:   %-10s\nAUR ($aur_helper): %-10s\nFlatpak:    %-10s\n\n" "$official_updates" "$aur_updates" "$flatpak_updates" && exit
+
+  tooltip="Official:   $official_updates\nAUR ($aur_helper): $aur_updates\nFlatpak:    $flatpak_updates"
+fi
+
+# Module and tooltip
+if [ $total_updates -eq 0 ]; then
+  echo "{\"text\":\"󰸟\", \"tooltip\":\"Packages are up to date\"}"
+else
+  echo "{\"text\":\"󰞒\", \"tooltip\":\"${tooltip//\"/\\\"}\"}"
+fi
