@@ -4,7 +4,7 @@ pkgver=2.9.7.0.r0.g74ca505
 pkgrel=1
 pkgdesc="The ML4W Dotfiles for Hyprland - An advanced and full-featured configuration for the dynamic tiling window manager Hyprland including an easy to use installation script for Arch based Linux distributions. "
 arch=(any)
-url="https://github.com/mylinuxforwork/dotfiles"
+url="https://github.com/Couvbat/dotfiles"
 license=('GPL')
 options=(!strip)
 depends=(
@@ -40,7 +40,7 @@ depends=(
 
 conflicts=('ml4w-hyprland')
 makedepends=(git)
-source=("${pkgname}::git+https://github.com/mylinuxforwork/dotfiles.git")
+source=("${pkgname}::git+https://github.com/Couvbat/dotfiles.git")
 md5sums=('SKIP')
 
 pkgver() {

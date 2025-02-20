@@ -11,7 +11,7 @@ YouTube Video https://youtu.be/sVFnd5LAYAc
 
 ## Installation
 
-The installation should work on all Arch Linux and Fedora based distributions. [You can find more information here](https://github.com/mylinuxforwork/dotfiles/wiki).
+The installation should work on all Arch Linux and Fedora based distributions. [You can find more information here](https://github.com/Couvbat/dotfiles/wiki).
 
 I recommend to install a base Hyprland system before installing the ML4W Hyprland Dotfiles. Then you have a stable starting point and can test Hyprland on your system beforehand. Hyprland is complex, under ongoing development, and requires additional components.
 
@@ -34,20 +34,20 @@ Please rebuild all packages to ensure that you get the latest commit.
 ### Fedora Linux (based)
 
 ```shell
-bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/setup-fedora.sh)
+bash <(curl -s https://raw.githubusercontent.com/Couvbat/dotfiles/main/setup-fedora.sh)
 ```
 
 ## Troubleshooting
 
-You can find solutions to common issues in the Wiki troubleshooting section: https://github.com/mylinuxforwork/dotfiles/wiki/Troubleshooting
+You can find solutions to common issues in the Wiki troubleshooting section: https://github.com/Couvbat/dotfiles/wiki/Troubleshooting
 
 ## Documentation (Wiki)
 
-You can find the complete documentation of the ML4W Dotfiles in the Wiki. <b>[Open the Wiki here](https://github.com/mylinuxforwork/dotfiles/wiki)</b>
+You can find the complete documentation of the ML4W Dotfiles in the Wiki. <b>[Open the Wiki here](https://github.com/Couvbat/dotfiles/wiki)</b>
 
 ## Contributing
 
-Thanks for using the ML4W Dotfiles on your system. If you find a problem or a bug, please [report your issue on this page](https://github.com/mylinuxforwork/dotfiles/issues).
+Thanks for using the ML4W Dotfiles on your system. If you find a problem or a bug, please [report your issue on this page](https://github.com/Couvbat/dotfiles/issues).
 
 You can also visit the [ML4W Discord Server](https://discord.gg/c4fJK7Za3g) to start a discussion with other users.
 
@@ -57,7 +57,7 @@ You can also visit the [ML4W Discord Server](https://discord.gg/c4fJK7Za3g) to s
 
 ## Wallpaper repository
 
-You can find my wallpaper collection in the repository https://github.com/mylinuxforwork/wallpaper
+You can find my wallpaper collection in the repository https://github.com/Couvbat/wallpaper
 
 ## Inspirations
 

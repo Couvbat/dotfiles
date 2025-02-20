@@ -4,7 +4,7 @@ clear
 # -----------------------------------------------------
 # Repository
 # -----------------------------------------------------
-repo="mylinuxforwork/dotfiles"
+repo="Couvbat/dotfiles"
 
 # -----------------------------------------------------
 # Download Folder
@@ -139,7 +139,7 @@ fi
 echo ":: Checking that required packages are installed..."
 _installPackages "${packages[@]}"
 
-bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/share/packages/fedora/special/gum.sh)
+bash <(curl -s https://raw.githubusercontent.com/Couvbat/dotfiles/main/share/packages/fedora/special/gum.sh)
 
 echo
 # Select the dotfiles version
@@ -151,7 +151,7 @@ version=$(gum choose "main-release" "rolling-release" "cancel")
 if [ "$version" == "main-release" ]; then
     echo ":: Installing Main Release"
     echo
-    git clone --branch $latest_version --depth 1 https://github.com/mylinuxforwork/dotfiles.git $download_folder/dotfiles
+    git clone --branch $latest_version --depth 1 https://github.com/Couvbat/dotfiles.git $download_folder/dotfiles
 elif [ "$version" == "rolling-release" ]; then
     echo ":: Installing Rolling Release"
     echo

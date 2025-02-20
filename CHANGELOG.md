@@ -47,7 +47,7 @@ Version 2.9.7.1
 
 Version 2.9.7.0
 --------------------------------------------------------
-- Fedora support added. Please see the installation instruction on https://github.com/mylinuxforwork/dotfiles/wiki
+- Fedora support added. Please see the installation instruction on https://github.com/Couvbat/dotfiles/wiki
 - One command installation added for Fedora and Arch based distributions
 - New default wallpaper added
 
@@ -125,17 +125,17 @@ Version 2.9.5
 - New wallpaper effects added. Right click on waybar wallpaper icon
 
 Version 2.9.4
-https://github.com/mylinuxforwork/dotfiles/milestone/1?closed=1
+https://github.com/Couvbat/dotfiles/milestone/1?closed=1
 --------------------------------------------------------
 - EWW replaced with AGS. New ML4W Sidebar based on AGS
-- New hook.sh and post.sh installation scripts. https://github.com/mylinuxforwork/dotfiles/wiki/Hook-and-Post-Installation-Scripts
-- Add Flatpak installation option to the installation script https://github.com/mylinuxforwork/dotfiles/issues/43
+- New hook.sh and post.sh installation scripts. https://github.com/Couvbat/dotfiles/wiki/Hook-and-Post-Installation-Scripts
+- Add Flatpak installation option to the installation script https://github.com/Couvbat/dotfiles/issues/43
 - Position of dunst can be changed in the ML4W Dotfiles App
 - Screenshot script based on grimblast.
 - New screenshot editor pinta added to package list. Editor can be changed in teh ML4W Dotfiles app and in dotfiles/.settings/screenshot-editor.sh
 
 Version 2.9.3
-https://github.com/mylinuxforwork/dotfiles/blob/main/CHANGELOG.md
+https://github.com/Couvbat/dotfiles/blob/main/CHANGELOG.md
 --------------------------------------------------------
 - ML4W .bashrc can be extended by adding a file .bashrc_custom in your home directory to create custom aliases and more
 - Adding Missioncontrol as new systeminfo app
