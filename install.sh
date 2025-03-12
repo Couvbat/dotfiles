@@ -277,7 +277,7 @@ if [ ! -d "$HOME/.config" ]; then
 fi
 
 # Copy dotfiles
-cp -r share/dotfiles/* "$HOME/.config"
+cp -r share/dotfiles/. "$HOME/"
 
 # -----------------------------------------------------
 # Copy scripts from repo to home directory
