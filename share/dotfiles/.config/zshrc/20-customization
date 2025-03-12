@@ -104,3 +104,4 @@ alias ls="eza --color=always --long --git --icons=always --no-user"
 eval "$(zoxide init zsh)"
 alias cd="z"
 
+alias inleed="jp2a --colors --size=36x13 -b ~/Images/logo2.png && figlet In-Leed"

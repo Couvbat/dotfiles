@@ -38,11 +38,11 @@ while true; do
   wifi_status=$(nmcli -fields WIFI g)
 
   case "$wifi_status" in
-  *"enabled"*)
+  *"activé"*)
     selected_option=$(echo "$options"$'\n'"$(wifi_list)" |
       rofi -dmenu -i -selected-row 1 -config "${config}" -p " " || pkill -x rofi)
     ;;
-  *"disabled"*)
+  *"désactivé"*)
     selected_option=$(echo "$option_disabled" |
       rofi -dmenu -i -config "${config}" -theme-str "${override_disabled}" || pkill -x rofi)
     ;;

@@ -165,6 +165,10 @@ packages=(
 # Check if required packages are installed
 _installPackages "${packages[@]}"
 
+systemctl enable sddm.service
+systemctl enable NetworkManager.service
+
+
 # -----------------------------------------------------
 # Install required packages for my setup
 # -----------------------------------------------------
@@ -179,6 +183,9 @@ packages=(
     "bluez-utils"
     "zsh"
     "zsh-completions"
+    "zsh-autosuggestions"
+    "zsh-syntax-highlighting"
+    "fast-syntax-highlighting"
     "eza"
     "fzf"
     "fd"
@@ -301,7 +308,7 @@ if [ "$SHELL" != "/bin/zsh" ]; then
     chsh -s /bin/zsh
 fi
 
-# Install oh-my-zsh
-zsh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    # Install oh-my-zsh
+    wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+fi

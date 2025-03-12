@@ -94,7 +94,7 @@ else
   signal=$(echo "$wifi_info" | awk -F: '{print $3}')
 
   active_device=$(nmcli -t -f DEVICE,STATE device status |
-    grep -w "connected" |
+    grep -w "connecté" |
     grep -v -E "^(dummy|lo:)" |
     awk -F: '{print $1}')
 

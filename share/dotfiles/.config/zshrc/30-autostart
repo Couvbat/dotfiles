@@ -11,7 +11,7 @@ cat ~/.cache/wal/sequences
 # Fastfetch
 # -----------------------------------------------------
 if [[ $(tty) == *"pts"* ]]; then
-    fastfetch --config examples/13
+    clear && jp2a --colors --size=36x12 ~/Images/logo2.png | fastfetch --config examples/13 --file-raw -
     #pokemon-colorscripts -r
 else
     echo
