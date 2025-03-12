@@ -83,8 +83,7 @@ packages=(
     "nvidia-open-dkms"
     "nvidia-utils"
     "nvidia-settings"
-    "asusctl"
-    "rog-control-center"
+    "figlet"
 )
 
 # Check if required packages are installed
@@ -93,6 +92,7 @@ _installPackages "${packages[@]}"
 # -----------------------------------------------------
 # Install paru
 # -----------------------------------------------------
+figlet "AUR"
 
 # Install paru if needed
 _installParu() {
@@ -116,6 +116,7 @@ fi
 # -----------------------------------------------------
 # Install required packages for hyprland
 # -----------------------------------------------------
+figlet "Hyprland"
 
 # Required packages for hyprland
 packages=(
@@ -167,6 +168,7 @@ _installPackages "${packages[@]}"
 # -----------------------------------------------------
 # Install required packages for my setup
 # -----------------------------------------------------
+figlet "Packages"    
 
 # Required packages for my setup
 packages=(
@@ -193,12 +195,6 @@ packages=(
     "gnome-calculator"
 )
 
-# Make zsh default shell
-chsh -s /bin/zsh
-
-# Install oh-my-zsh
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 # Check if required packages are installed
 _installPackages "${packages[@]}"
 
@@ -219,21 +215,30 @@ aurPackages=(
     "spotube-bin"
     "visual-studio-code-bin"
     "zen-browser-bin"
+    "asusctl"
+    "rog-control-center"
 )
+
+# -----------------------------------------------------
+# Install NVM and Node.js
+# -----------------------------------------------------
+figlet "Node.js"
+
+# Install Node Version Manager (NVM)
+if ! command_exists nvm; then
+    echo "Installing NVM"
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
 # Check if required AUR packages are installed
 _installAurPackages "${aurPackages[@]}"
-
-# -----------------------------------------------------
-# Install qemu and virt-manager
-# -----------------------------------------------------
-
-
-
-
 # -----------------------------------------------------
 # Install required fonts
 # -----------------------------------------------------
+figlet "Fonts"
 
 # Required fonts
 fonts=(
@@ -248,8 +253,13 @@ fonts=(
 _installPackages "${fonts[@]}"
 
 # -----------------------------------------------------
+# Install qemu and virt-manager
+# -----------------------------------------------------
+
+# -----------------------------------------------------
 # Copy wallpapers folder
 # -----------------------------------------------------
+figlet "Wallpapers"
 
 # Copy wallpapers folder
 if [ ! -d "$HOME/Wallpaper" ]; then
@@ -260,6 +270,8 @@ fi
 # -----------------------------------------------------
 # Copy dotfiles from repo to home directory
 # -----------------------------------------------------
+figlet "Dotfiles"
+
 if [ ! -d "$HOME/.config" ]; then
     mkdir -p "$HOME/.config"
 fi
@@ -270,7 +282,26 @@ cp -r share/dotfiles/* "$HOME/.config"
 # -----------------------------------------------------
 # Copy scripts from repo to home directory
 # -----------------------------------------------------
+figlet "Scripts"
+
 if [ ! -d "$HOME/.local/bin" ]; then
     mkdir -p "$HOME/.local/bin"
 fi
+
+# Copy scripts
+
+
+# -----------------------------------------------------
+# Shell configuration
+# -----------------------------------------------------
+figlet "ZSH"
+
+# Check if zsh is the default shell
+if [ "$SHELL" != "/bin/zsh" ]; then
+    chsh -s /bin/zsh
+fi
+
+# Install oh-my-zsh
+zsh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 
