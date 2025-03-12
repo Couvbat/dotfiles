@@ -165,9 +165,20 @@ packages=(
 # Check if required packages are installed
 _installPackages "${packages[@]}"
 
-systemctl enable sddm.service
-systemctl enable NetworkManager.service
+# Enable services
+systemctl enable pipewire.service
 
+systemctl enable NetworkManager.service
+systemctl enable sddm.service
+
+# copy sddm conf and theme
+if [ ! -d "/etc/sddm.conf.d" ]; then
+    mkdir -p "/etc/sddm.conf.d"
+fi
+
+
+cp share/sddm/sddm.conf /etc/sddm.conf.d/
+cp share/sddm/theme.conf /etc/sddm.conf.d/theme.conf
 
 # -----------------------------------------------------
 # Install required packages for my setup
