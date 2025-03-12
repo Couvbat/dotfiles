@@ -6,9 +6,6 @@ config sddm
 
 config hyprland
 
-copy dotfiles config
+copy scripts
 
-copy wallpapers
-
-copy fonts
-
+mechabar waybar

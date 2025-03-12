@@ -189,10 +189,15 @@ packages=(
     "dog"
     "imagemagick"
     "neovim"  
-    "firefox"
     "nautilus"
     "gnome-calculator"
 )
+
+# Make zsh default shell
+chsh -s /bin/zsh
+
+# Install oh-my-zsh
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Check if required packages are installed
 _installPackages "${packages[@]}"
@@ -213,6 +218,7 @@ aurPackages=(
     "vesktop-bin"
     "spotube-bin"
     "visual-studio-code-bin"
+    "zen-browser-bin"
 )
 
 # Check if required AUR packages are installed
@@ -248,7 +254,7 @@ _installPackages "${fonts[@]}"
 # Copy wallpapers folder
 if [ ! -d "$HOME/Wallpaper" ]; then
     mkdir -p "$HOME/Wallpaper"
-    cp -r wallpapers/* "$HOME/Wallpaper"
+    cp -r share/wallpapers/* "$HOME/Wallpaper"
 fi
 
 # -----------------------------------------------------
@@ -259,7 +265,7 @@ if [ ! -d "$HOME/.config" ]; then
 fi
 
 # Copy dotfiles
-cp -r dotfiles/* "$HOME/.config"
+cp -r share/dotfiles/* "$HOME/.config"
 
 # -----------------------------------------------------
 # Copy scripts from repo to home directory
@@ -268,5 +274,3 @@ if [ ! -d "$HOME/.local/bin" ]; then
     mkdir -p "$HOME/.local/bin"
 fi
 
-# Copy scripts
-cp -r scripts/* "$HOME/.local/bin"
