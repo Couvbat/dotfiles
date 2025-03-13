@@ -120,6 +120,8 @@ figlet "Hyprland"
 
 # Required packages for hyprland
 packages=(
+    "xorg"
+    "xwayland"
     "hyprland"
     "hyprpaper"
     "hyprlock"
