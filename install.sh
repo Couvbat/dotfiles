@@ -121,7 +121,8 @@ figlet "Hyprland"
 # Required packages for hyprland
 hyper_packages=(
     "xorg"
-    "xwayland"
+    "egl-wayland"
+    "xorg-xwayland"
     "hyprland"
     "hyprpaper"
     "hyprlock"
