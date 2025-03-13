@@ -271,6 +271,17 @@ fi
 # -----------------------------------------------------
 figlet "Fonts"
 
+# Required fonts
+fonts=(
+    "ttf-fira-code"
+    "ttf-fira-sans"
+    "ttf-dejavu"
+    "otf-font-awesome"
+    "ttf-firacode-nerd"
+)
+
+# Check if required fonts are installed
+_installPackages "${fonts[@]}"
 
 # -----------------------------------------------------
 # Install qemu and virt-manager
