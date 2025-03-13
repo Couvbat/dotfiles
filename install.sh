@@ -66,7 +66,7 @@ _installAurPackages() {
 }
 
 # Required packages for the installer
-packages=(
+installer_packages=(
     "pacman-contrib"
     "git"
     "base-devel"
@@ -87,7 +87,7 @@ packages=(
 )
 
 # Check if required packages are installed
-_installPackages "${packages[@]}"
+_installPackages "${installer_packages[@]}"
 
 # -----------------------------------------------------
 # Install paru
@@ -119,7 +119,7 @@ fi
 figlet "Hyprland"
 
 # Required packages for hyprland
-packages=(
+hyper_packages=(
     "xorg"
     "xwayland"
     "hyprland"
@@ -164,8 +164,8 @@ packages=(
     "python-pywal"
 )
 
-# Check if required packages are installed
-_installPackages "${packages[@]}"
+# Check if required hyper packages are installed
+_installPackages "${hyper_packages[@]}"
 
 # Enable services
 systemctl enable NetworkManager.service
@@ -186,7 +186,7 @@ cp share/sddm/theme.conf /etc/sddm.conf.d/theme.conf
 figlet "Packages"    
 
 # Required packages for my setup
-packages=(
+setup_packages=(
     "fastfetch"
     "discover"
     "flatpak"
@@ -214,7 +214,7 @@ packages=(
 )
 
 # Check if required packages are installed
-_installPackages "${packages[@]}"
+_installPackages "${setup_packages[@]}"
 
 # AUR packages for my setup
 aurPackages=(
@@ -271,18 +271,7 @@ fi
 # -----------------------------------------------------
 figlet "Fonts"
 
-# Required fonts
-fonts=(
-    "ttf-fira-code"
-    "ttf-fira-sans"
-    "ttf-dejavu"
-    "otf-font-awesome"
-    "ttf-firacode-nerd"
-)
-
-# Check if required fonts are installed
-_installPackages "${fonts[@]}"
-
+# Required fontsp
 # -----------------------------------------------------
 # Install qemu and virt-manager
 # -----------------------------------------------------
@@ -334,6 +323,12 @@ fi
 # -----------------------------------------------------
 figlet "ZSH"
 
+# check if zsh is installed
+if ! command_exists zsh; then
+    echo "Installing zsh"
+    sudo pacman -S --noconfirm zsh
+fi
+
 # Check if zsh is the default shell
 if [ "$SHELL" != "/bin/zsh" ]; then
     chsh -s /bin/zsh
@@ -342,4 +337,6 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     # Install oh-my-zsh
     wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+else
+    echo "Oh My Zsh is already installed."
 fi
