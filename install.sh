@@ -284,11 +284,11 @@ figlet "Wallpapers"
 # Copy wallpapers folder
 if [ ! -d "$HOME/Wallpaper" ]; then
     mkdir -p "$HOME/Wallpaper"
-    cp -r share/wallpapers/* "$HOME/Wallpaper"
+    cp -r share/wallpapers/* "$HOME/wallpapers"
 fi
 
 if [ ! -f ~/.cache/wal/colors-hyprland.conf ]; then
-    wal -ei ~/wallpaper/default.jpg
+    wal -ei ~/wallpapers/default.jpg
     echo "Pywal and templates activated."
 else
     echo "Pywal already activated."
