@@ -40,7 +40,7 @@ _installPackages() {
 
     if [ ${#toInstall[@]} -gt 0 ]; then
         echo ":: Installing required packages..."
-        sudo pacman -S --noconfirm "${toInstall[@]}"
+        sudo pacman -S --needed --noconfirm "${toInstall[@]}"
     else
         echo ":: No packages need to be installed."
     fi
@@ -168,8 +168,6 @@ packages=(
 _installPackages "${packages[@]}"
 
 # Enable services
-systemctl enable pipewire.service
-
 systemctl enable NetworkManager.service
 systemctl enable sddm.service
 
@@ -239,6 +237,9 @@ aurPackages=(
     "rog-control-center"
 )
 
+# Check if required AUR packages are installed
+_installAurPackages "${aurPackages[@]}"
+
 # -----------------------------------------------------
 # Install NVM and Node.js
 # -----------------------------------------------------
@@ -253,8 +254,18 @@ if ! command_exists nvm; then
     [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-# Check if required AUR packages are installed
-_installAurPackages "${aurPackages[@]}"
+# -----------------------------------------------------
+# Install MongoDB
+# -----------------------------------------------------
+figlet "MongoDB"
+
+if ! command_exists mongod; then
+    echo "Installing MongoDB"
+    paru -S --noconfirm mongodb-bin
+    sudo systemctl enable mongodb
+    sudo systemctl start mongodb
+fi
+
 # -----------------------------------------------------
 # Install required fonts
 # -----------------------------------------------------
@@ -285,6 +296,13 @@ figlet "Wallpapers"
 if [ ! -d "$HOME/Wallpaper" ]; then
     mkdir -p "$HOME/Wallpaper"
     cp -r share/wallpapers/* "$HOME/Wallpaper"
+fi
+
+if [ ! -f ~/.cache/wal/colors-hyprland.conf ]; then
+    wal -ei ~/wallpaper/default.jpg
+    echo "Pywal and templates activated."
+else
+    echo "Pywal already activated."
 fi
 
 # -----------------------------------------------------
