@@ -271,7 +271,7 @@ fi
 # -----------------------------------------------------
 figlet "Fonts"
 
-# Required fontsp
+
 # -----------------------------------------------------
 # Install qemu and virt-manager
 # -----------------------------------------------------
@@ -293,18 +293,6 @@ if [ ! -f ~/.cache/wal/colors-hyprland.conf ]; then
 else
     echo "Pywal already activated."
 fi
-
-# -----------------------------------------------------
-# Copy dotfiles from repo to home directory
-# -----------------------------------------------------
-figlet "Dotfiles"
-
-if [ ! -d "$HOME/.config" ]; then
-    mkdir -p "$HOME/.config"
-fi
-
-# Copy dotfiles
-cp -r share/dotfiles/. "$HOME/"
 
 # -----------------------------------------------------
 # Copy scripts from repo to home directory
@@ -340,3 +328,15 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 else
     echo "Oh My Zsh is already installed."
 fi
+
+# -----------------------------------------------------
+# Copy dotfiles from repo to home directory
+# -----------------------------------------------------
+figlet "Dotfiles"
+
+if [ ! -d "$HOME/.config" ]; then
+    mkdir -p "$HOME/.config"
+fi
+
+# Copy dotfiles
+cp -r share/dotfiles/. "$HOME/"
