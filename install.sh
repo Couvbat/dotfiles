@@ -179,14 +179,13 @@ if [ ! -d "/etc/sddm.conf.d" ]; then
     mkdir -p "/etc/sddm.conf.d"
 fi
 
-
 cp share/sddm/sddm.conf /etc/sddm.conf.d/
 cp share/sddm/theme.conf /etc/sddm.conf.d/theme.conf
 
 # -----------------------------------------------------
 # Install required packages for my setup
 # -----------------------------------------------------
-figlet "Packages"    
+figlet "Packages"
 
 # Required packages for my setup
 setup_packages=(
@@ -199,7 +198,6 @@ setup_packages=(
     "zsh-completions"
     "zsh-autosuggestions"
     "zsh-syntax-highlighting"
-    "fast-syntax-highlighting"
     "eza"
     "fzf"
     "fd"
@@ -211,7 +209,7 @@ setup_packages=(
     "gping"
     "dog"
     "imagemagick"
-    "neovim"  
+    "neovim"
     "nautilus"
     "gnome-calculator"
 )
@@ -253,8 +251,8 @@ if ! command_exists nvm; then
     echo "Installing NVM"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"                   # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 fi
 
 # -----------------------------------------------------
@@ -318,7 +316,6 @@ if [ ! -d "$HOME/.local/bin" ]; then
 fi
 
 # Copy scripts
-
 
 # -----------------------------------------------------
 # Shell configuration
