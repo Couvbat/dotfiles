@@ -118,7 +118,6 @@ fi
 # -----------------------------------------------------
 # Install required packages for hyprland
 # -----------------------------------------------------
-figlet "Hyprland"
 
 # Required packages for hyprland
 hyper_packages=(
@@ -176,11 +175,11 @@ systemctl enable sddm.service
 
 # copy sddm conf and theme
 if [ ! -d "/etc/sddm.conf.d" ]; then
-    mkdir -p "/etc/sddm.conf.d"
+    sudo mkdir -p "/etc/sddm.conf.d"
 fi
 
-cp share/sddm/sddm.conf /etc/sddm.conf.d/
-cp share/sddm/theme.conf /etc/sddm.conf.d/theme.conf
+sudo cp share/sddm/sddm.conf /etc/sddm.conf.d/
+sudo cp share/sddm/theme.conf /etc/sddm.conf.d/theme.conf
 
 # -----------------------------------------------------
 # Install required packages for my setup
@@ -337,11 +336,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     # Install oh-my-zsh
     wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
 else
-    echo "Oh My Zsh is already installed."
-fi
-
-# -----------------------------------------------------
-# Copy dotfiles from repo to home directory
+    echo "Oh My Zsh is already Refactor installation script to use sudo for directory creation and file copying; rename variable for AUR packages and update command existence checksme directory
 # -----------------------------------------------------
 figlet "Dotfiles"
 
