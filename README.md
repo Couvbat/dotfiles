@@ -26,8 +26,6 @@ Please rebuild all packages to ensure that you get the latest commit.
 
 This repo was originally a fork of the ML4W Dotfiles.
 
-
-
 The following projects have inspired me:
 
 - https://github.com/mylinuxforwork/dotfiles
