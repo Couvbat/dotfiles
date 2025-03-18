@@ -22,18 +22,6 @@ bash <(curl -s https://raw.githubusercontent.com/Couvbat/dotfiles/main/install.s
 
 Please rebuild all packages to ensure that you get the latest commit.
 
-## Troubleshooting
-
-You can find solutions to common issues in the Wiki troubleshooting section: https://github.com/Couvbat/dotfiles/wiki/Troubleshooting
-
-## Documentation (Wiki)
-
-You can find the complete documentation of the ML4W Dotfiles in the Wiki. <b>[Open the Wiki here](https://github.com/Couvbat/dotfiles/wiki)</b>
-
-## Contributing
-
-Thanks for using the ML4W Dotfiles on your system. If you find a problem or a bug, please [report your issue on this page](https://github.com/Couvbat/dotfiles/issues).
-
 ## Inspirations
 
 This repo was originally a fork of the ML4W Dotfiles.
