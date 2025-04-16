@@ -395,20 +395,20 @@ fi
 # -----------------------------------------------------
 # Copy scripts from repo to home directory
 # -----------------------------------------------------
-figlet "Scripts"
+# figlet "Scripts"
 
-if [ ! -d "$HOME/.local/bin" ]; then
-    mkdir -p "$HOME/.local/bin"
-fi
+# if [ ! -d "$HOME/.local/bin" ]; then
+#     mkdir -p "$HOME/.local/bin"
+# fi
 
-# Copy scripts
-if [ -d "$SCRIPTS_DIR" ]; then
-    cp -r "$SCRIPTS_DIR"/* "$HOME/.local/bin/"
-    chmod +x "$HOME/.local/bin/"*
-else
-    echo "Scripts directory not found: $SCRIPTS_DIR"
-    FAILED_STEPS+=("Scripts copy failed")
-fi
+# # Copy scripts
+# if [ -d "$SCRIPTS_DIR" ]; then
+#     cp -r "$SCRIPTS_DIR"/* "$HOME/.local/bin/"
+#     chmod +x "$HOME/.local/bin/"*
+# else
+#     echo "Scripts directory not found: $SCRIPTS_DIR"
+#     FAILED_STEPS+=("Scripts copy failed")
+# fi
 
 # -----------------------------------------------------
 # Fastfetch
