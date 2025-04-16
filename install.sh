@@ -68,7 +68,7 @@ _installAurPackages() {
     done
     if [ ${#toInstall[@]} -gt 0 ]; then
         echo ":: Installing required AUR packages..."
-        if ! paru -S --noconfirm "${toInstall[@]}"; then
+        if ! paru -S --noconfirm --skipreview "${toInstall[@]}"; then
             FAILED_STEPS+=("AUR: ${toInstall[*]}")
         fi
     else
@@ -254,41 +254,70 @@ _installAurPackages "${aurPackages[@]}"
 # -----------------------------------------------------
 figlet "Nvidia"
 
-# 1. Ensure /etc/modprobe.d/nvidia.conf exists with correct content
-# nvidia_conf="/etc/modprobe.d/nvidia.conf"
-# if [ ! -f "$nvidia_conf" ]; then
-#     echo "options nvidia_drm modeset=1" | sudo tee "$nvidia_conf"
-#     echo ":: Created $nvidia_conf with modeset=1"
-# else
-#     if ! grep -q "options nvidia_drm modeset=1" "$nvidia_conf"; then
-#         echo "options nvidia_drm modeset=1" | sudo tee -a "$nvidia_conf"
-#         echo ":: Appended modeset=1 to $nvidia_conf"
-#     else
-#         echo ":: $nvidia_conf already contains modeset=1"
-#     fi
-# fi
+# Uninstall old Hyprland packages if present
+AUR_HELPER=paru
+if $AUR_HELPER -Qs hyprland >/dev/null; then
+    echo "Uninstalling old Hyprland packages..."
+    for pkg in hyprland-git hyprland-nvidia hyprland-nvidia-git hyprland-nvidia-hidpi-git; do
+        $AUR_HELPER -R --noconfirm "$pkg" 2>/dev/null || true
+    done
+fi
 
-# # 2. Edit /etc/mkinitcpio.conf MODULES array (merge instead of overwrite)
-# mkinitcpio_conf="/etc/mkinitcpio.conf"
-# if [ -f "$mkinitcpio_conf" ]; then
-#     sudo sed -i 's/\bkms\b//g' "$mkinitcpio_conf"
-#     if grep -q "^MODULES=" "$mkinitcpio_conf"; then
-#         current_modules=$(grep '^MODULES=' "$mkinitcpio_conf" | sed 's/^MODULES=//' | tr -d '()')
-#         required_modules="btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-#         merged_modules=$(echo $current_modules $required_modules | tr ' ' '\n' | awk '!seen[$0]++' | xargs)
-#         sudo sed -i "s/^MODULES=.*/MODULES=($merged_modules)/" "$mkinitcpio_conf"
-#     else
-#         echo "MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm)" | sudo tee -a "$mkinitcpio_conf"
-#     fi
-#     echo ":: Updated MODULES in $mkinitcpio_conf"
-# else
-#     echo "Warning: $mkinitcpio_conf not found!"
-#     FAILED_STEPS+=("mkinitcpio.conf not found")
-# fi
+# Install NVIDIA and related packages for each kernel
+nvidia_pkgs=(nvidia-dkms nvidia-settings nvidia-utils libva libva-nvidia-driver-git)
+if [ -d /usr/lib/modules ]; then
+    for krnl in $(cat /usr/lib/modules/*/pkgbase 2>/dev/null); do
+        for pkg in "${krnl}-headers" "${nvidia_pkgs[@]}"; do
+            $AUR_HELPER -S --noconfirm --needed "$pkg"
+        done
+    done
+fi
 
-# 3. Rebuild initramfs
-echo ":: Rebuilding initramfs with mkinitcpio"
+# Ensure MODULES in /etc/mkinitcpio.conf contains NVIDIA modules
+mkinitcpio_conf="/etc/mkinitcpio.conf"
+if [ -f "$mkinitcpio_conf" ]; then
+    if ! grep -qE '^MODULES=.*nvidia.*nvidia_modeset.*nvidia_uvm.*nvidia_drm' "$mkinitcpio_conf"; then
+        sudo sed -Ei 's/^(MODULES=\([^)]+)\)/\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+        echo "Nvidia modules added to $mkinitcpio_conf"
+    fi
+else
+    echo "Warning: $mkinitcpio_conf not found!"
+    FAILED_STEPS+=("mkinitcpio.conf not found")
+fi
+
+# Ensure /etc/modprobe.d/nvidia.conf has correct options
+nvidia_conf="/etc/modprobe.d/nvidia.conf"
+if [ ! -f "$nvidia_conf" ]; then
+    echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee "$nvidia_conf"
+else
+    if ! grep -q "options nvidia_drm modeset=1 fbdev=1" "$nvidia_conf"; then
+        echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee -a "$nvidia_conf"
+    fi
+fi
+
+# Rebuild initramfs
 sudo mkinitcpio -P
+
+# Add NVIDIA kernel params to GRUB if present
+if [ -f /etc/default/grub ]; then
+    sudo sed -i -e '/GRUB_CMDLINE_LINUX_DEFAULT=/ s/"$/ nvidia-drm.modeset=1 nvidia_drm.fbdev=1"/' /etc/default/grub
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
+# Add NVIDIA kernel params to systemd-boot if present
+if [ -f /boot/loader/loader.conf ]; then
+    if [ $(ls -l /boot/loader/entries/*.conf.ml4w.bkp 2>/dev/null | wc -l) -ne $(ls -l /boot/loader/entries/*.conf 2>/dev/null | wc -l) ]; then
+        find /boot/loader/entries/ -type f -name "*.conf" | while read imgconf; do
+            sudo cp ${imgconf} ${imgconf}.ml4w.bkp
+            sdopt=$(grep -w "^options" ${imgconf} | sed 's/\\b quiet\\b//g' | sed 's/\\b splash\\b//g' | sed 's/\\b nvidia-drm.modeset=.\\b//g' | sed 's/\\b nvidia_drm.fbdev=.\\b//g')
+            sudo sed -i "/^options/c${sdopt} quiet splash nvidia-drm.modeset=1 nvidia_drm.fbdev=1" ${imgconf}
+        done
+    else
+        echo -e "\033[0;33m[SKIP]\033[0m systemd-boot is already configured..."
+    fi
+fi
+
+echo "NVIDIA configuration complete!"
 
 # -----------------------------------------------------
 # Configure SDDM theme and wallpaper
@@ -392,6 +421,18 @@ else
     echo "Oh My Zsh is already a directory"
 fi
 
+if [ ! -d "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh/plugins/fast-syntax-highlighting" ]; then
+    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting "$HOME/.oh-my-zsh/plugins/fast-syntax-highlighting"
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions"
+fi
+
 # -----------------------------------------------------
 # Copy scripts from repo to home directory
 # -----------------------------------------------------
@@ -425,18 +466,6 @@ echo "Copying logo for fastfetch config"
 cp -r "$IMAGES_DIR/." "$HOME/Images"
 
 kitten icat -n --align=left --transfer-mode=stream "$HOME/Images/logo.png" > "$HOME/Images/logo.bin"
-
-if [ ! -d "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting" ]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting
-fi
-
-if [ ! -d "$HOME/.oh-my-zsh/plugins/fast-syntax-highlighting" ]; then
-    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting
-fi
-
-if [ ! -d "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions" ]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting
-fi
 
 # -----------------------------------------------------
 # Dotfiles
