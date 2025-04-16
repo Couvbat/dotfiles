@@ -255,36 +255,36 @@ _installAurPackages "${aurPackages[@]}"
 figlet "Nvidia"
 
 # 1. Ensure /etc/modprobe.d/nvidia.conf exists with correct content
-nvidia_conf="/etc/modprobe.d/nvidia.conf"
-if [ ! -f "$nvidia_conf" ]; then
-    echo "options nvidia_drm modeset=1" | sudo tee "$nvidia_conf"
-    echo ":: Created $nvidia_conf with modeset=1"
-else
-    if ! grep -q "options nvidia_drm modeset=1" "$nvidia_conf"; then
-        echo "options nvidia_drm modeset=1" | sudo tee -a "$nvidia_conf"
-        echo ":: Appended modeset=1 to $nvidia_conf"
-    else
-        echo ":: $nvidia_conf already contains modeset=1"
-    fi
-fi
+# nvidia_conf="/etc/modprobe.d/nvidia.conf"
+# if [ ! -f "$nvidia_conf" ]; then
+#     echo "options nvidia_drm modeset=1" | sudo tee "$nvidia_conf"
+#     echo ":: Created $nvidia_conf with modeset=1"
+# else
+#     if ! grep -q "options nvidia_drm modeset=1" "$nvidia_conf"; then
+#         echo "options nvidia_drm modeset=1" | sudo tee -a "$nvidia_conf"
+#         echo ":: Appended modeset=1 to $nvidia_conf"
+#     else
+#         echo ":: $nvidia_conf already contains modeset=1"
+#     fi
+# fi
 
-# 2. Edit /etc/mkinitcpio.conf MODULES array (merge instead of overwrite)
-mkinitcpio_conf="/etc/mkinitcpio.conf"
-if [ -f "$mkinitcpio_conf" ]; then
-    sudo sed -i 's/\bkms\b//g' "$mkinitcpio_conf"
-    if grep -q "^MODULES=" "$mkinitcpio_conf"; then
-        current_modules=$(grep '^MODULES=' "$mkinitcpio_conf" | sed 's/^MODULES=//' | tr -d '()')
-        required_modules="btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-        merged_modules=$(echo $current_modules $required_modules | tr ' ' '\n' | awk '!seen[$0]++' | xargs)
-        sudo sed -i "s/^MODULES=.*/MODULES=($merged_modules)/" "$mkinitcpio_conf"
-    else
-        echo "MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm)" | sudo tee -a "$mkinitcpio_conf"
-    fi
-    echo ":: Updated MODULES in $mkinitcpio_conf"
-else
-    echo "Warning: $mkinitcpio_conf not found!"
-    FAILED_STEPS+=("mkinitcpio.conf not found")
-fi
+# # 2. Edit /etc/mkinitcpio.conf MODULES array (merge instead of overwrite)
+# mkinitcpio_conf="/etc/mkinitcpio.conf"
+# if [ -f "$mkinitcpio_conf" ]; then
+#     sudo sed -i 's/\bkms\b//g' "$mkinitcpio_conf"
+#     if grep -q "^MODULES=" "$mkinitcpio_conf"; then
+#         current_modules=$(grep '^MODULES=' "$mkinitcpio_conf" | sed 's/^MODULES=//' | tr -d '()')
+#         required_modules="btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+#         merged_modules=$(echo $current_modules $required_modules | tr ' ' '\n' | awk '!seen[$0]++' | xargs)
+#         sudo sed -i "s/^MODULES=.*/MODULES=($merged_modules)/" "$mkinitcpio_conf"
+#     else
+#         echo "MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm)" | sudo tee -a "$mkinitcpio_conf"
+#     fi
+#     echo ":: Updated MODULES in $mkinitcpio_conf"
+# else
+#     echo "Warning: $mkinitcpio_conf not found!"
+#     FAILED_STEPS+=("mkinitcpio.conf not found")
+# fi
 
 # 3. Rebuild initramfs
 echo ":: Rebuilding initramfs with mkinitcpio"
@@ -535,12 +535,12 @@ echo ":: If you encounter any issues, please check the ~/install.log file for mo
 
 # Print summary
 if [ ${#FAILED_STEPS[@]} -gt 0 ]; then
-    echo "\n====================="
+    echo "====================="
     echo "Some steps failed:"
     for step in "${FAILED_STEPS[@]}"; do
         echo "- $step"
     done
     echo "Check ~/install.log for details."
 else
-    echo "\nAll steps completed successfully!"
+    echo "All steps completed successfully!"
 fi
