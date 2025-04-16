@@ -1,0 +1,59 @@
+# Auto-generated Superfile theme based on pywal colors
+# Last updated: lun. 07 avril 2025 16:07:09 CEST
+
+# ========= Border =========
+file_panel_border = "#797f80"
+sidebar_border = "#061C24"
+footer_border = "#797f80"
+
+# ========= Border Active =========
+file_panel_border_active = "#66787A"
+sidebar_border_active = "#45585B"
+footer_border_active = "#495D60"
+modal_border_active = "#adb6b7"
+
+# ========= Background (bg) =========
+full_screen_bg = "#061C24"
+file_panel_bg = "#061C24"
+sidebar_bg = "#061C24"
+footer_bg = "#061C24"
+modal_bg = "#061C24"
+
+# ========= Foreground (fg) =========
+full_screen_fg = "#adb6b7"
+file_panel_fg = "#adb6b7"
+sidebar_fg = "#adb6b7"
+footer_fg = "#adb6b7"
+modal_fg = "#adb6b7"
+
+# ========= Special Color =========
+cursor = "#adb6b7"
+correct = "#495D60"
+error = "#45585B"
+hint = "#E78446"
+cancel = "#B1603C"
+# Gradient color can only have two color!
+gradient_color = ["#66787A", "#B1603C"]
+
+# ========= File Panel Special Items =========
+file_panel_top_directory_icon = "#495D60"
+file_panel_top_path = "#66787A"
+file_panel_item_selected_fg = "#E78446"
+file_panel_item_selected_bg = "#061C24"
+
+# ========= Sidebar Special Items =========
+sidebar_title = "#E78446"
+sidebar_item_selected_fg = "#E78446"
+sidebar_item_selected_bg = "#061C24"
+sidebar_divider = "#797f80"
+
+# ========= Modal Special Items =========
+modal_cancel_fg = "#061C24"
+modal_cancel_bg = "#B1603C"
+
+modal_confirm_fg = "#061C24"
+modal_confirm_bg = "#E78446"
+
+# ========= Help Menu =========
+help_menu_hotkey = "#E78446"
+help_menu_title = "#B1603C"
