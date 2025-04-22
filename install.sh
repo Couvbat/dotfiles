@@ -14,9 +14,10 @@ source "$(pwd)/lib/packages.sh"
 source "$(pwd)/lib/aur.sh"
 source "$(pwd)/lib/nvidia.sh"
 source "$(pwd)/lib/wallpapers.sh"
-source "$(pwd)/lib/zsh.sh"
-source "$(pwd)/lib/dotfiles.sh"
 source "$(pwd)/lib/sddm.sh"
+source "$(pwd)/lib/zsh.sh"
+source "$(pwd)/lib/fastfetch.sh"
+source "$(pwd)/lib/dotfiles.sh"
 source "$(pwd)/lib/node.sh"
 source "$(pwd)/lib/mongodb.sh"
 
@@ -26,12 +27,13 @@ source "$(pwd)/lib/mongodb.sh"
 install_packages
 install_aur_packages
 configure_nvidia
+setup_wallpapers
 setup_sddm
+setup_zsh
+setup_fastfetch
+copy_dotfiles
 install_node
 install_mongodb
-setup_zsh
-copy_dotfiles
-setup_wallpapers
 
 # -----------------------------------------------------
 # END

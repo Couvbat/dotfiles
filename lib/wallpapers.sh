@@ -1,21 +1,33 @@
 #!/bin/bash
 
 # Initialize variables
-WALLPAPERS_DIR="$(pwd)/share/wallpapers"
-IMAGES_DIR="$(pwd)/share/Images"
+WALLPAPER_REPO="https://github.com/couvbat/wallpapers.git"
+WALLPAPERS_DIR="$HOME/Wallpapers/share"
+
 
 setup_wallpapers() {
     figlet "Wallpapers"
 
+    # Clone the wallpapers repository if not already cloned
+    if [ ! -d "$HOME/Wallpapers" ]; then
+        echo ":: Cloning wallpapers repository"
+        git clone "$WALLPAPER_REPO" "$HOME/Wallpapers"
+    else
+        echo ":: Wallpapers repository already exists, pulling latest changes"
+        git -C "$HOME/Wallpapers" pull
+    fi
+
+    # Ensure the target wallpaper directory exists
     if [ ! -d "$HOME/wallpaper" ]; then
         mkdir -p "$HOME/wallpaper"
     fi
 
+    # Copy wallpapers from the cloned repository
     if [ -d "$WALLPAPERS_DIR" ]; then
         cp -r "$WALLPAPERS_DIR"/* "$HOME/wallpaper/"
         echo ":: Wallpapers copied to $HOME/wallpaper/"
     else
-        echo "Wallpapers directory not found: $WALLPAPERS_DIR"
+        echo "Wallpapers directory not found in the repository: $WALLPAPERS_DIR"
         FAILED_STEPS+=("Wallpapers copy failed")
     fi
 
