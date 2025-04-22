@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Initialize variables
+DOTFILES_DIR="$(pwd)/share/dotfiles"
+
 copy_dotfiles() {
     figlet "Dotfiles"
 

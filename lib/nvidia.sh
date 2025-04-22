@@ -1,19 +1,15 @@
 #!/bin/bash
 
+# Initialize variables
+AUR_HELPER=paru
+
 configure_nvidia() {
     figlet "Nvidia"
 
     # Uninstall old Hyprland packages if present
-    AUR_HELPER=paru
-    if $AUR_HELPER -Qs hyprland >/dev/null; then
-        echo "Uninstalling old Hyprland packages..."
-        for pkg in hyprland-git hyprland-nvidia hyprland-nvidia-git hyprland-nvidia-hidpi-git; do
-            $AUR_HELPER -R --noconfirm "$pkg" 2>/dev/null || true
-        done
-    fi
 
     # Install NVIDIA and related packages for each kernel
-    nvidia_pkgs=(nvidia-dkms nvidia-settings nvidia-utils libva libva-nvidia-driver-git)
+    nvidia_pkgs=(nvidia-dkms nvidia-settings nvidia-utils libva-nvidia-driver)
     if [ -d /usr/lib/modules ]; then
         for krnl in $(cat /usr/lib/modules/*/pkgbase 2>/dev/null); do
             for pkg in "${krnl}-headers" "${nvidia_pkgs[@]}"; do
@@ -49,7 +45,7 @@ configure_nvidia() {
 
     # Add NVIDIA kernel params to GRUB if present
     if [ -f /etc/default/grub ]; then
-        sudo sed -i -e '/GRUB_CMDLINE_LINUX_DEFAULT=/ s/"$/ nvidia-drm.modeset=1 nvidia_drm.fbdev=1"/' /etc/default/grub
+        sudo sed -i -e '/GRUB_CMDLINE_LINUX_DEFAULT=/ s/"$/ nvidia_drm.modeset=1 nvidia_drm.fbdev=1"/' /etc/default/grub
         sudo grub-mkconfig -o /boot/grub/grub.cfg
     fi
 

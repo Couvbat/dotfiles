@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Initialize variables
+WALLPAPERS_DIR="$(pwd)/share/wallpapers"
+IMAGES_DIR="$(pwd)/share/Images"
+
 setup_wallpapers() {
     figlet "Wallpapers"
 

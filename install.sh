@@ -3,18 +3,6 @@
 exec > >(tee -a "$HOME/install.log") 2>&1
 
 # -----------------------------------------------------
-# Configurable paths
-# -----------------------------------------------------
-DOTFILES_DIR="$(pwd)/share/dotfiles"
-SCRIPTS_DIR="$(pwd)/share/scripts"
-WALLPAPERS_DIR="$(pwd)/share/wallpapers"
-IMAGES_DIR="$(pwd)/share/Images"
-SDDM_THEME_REPO="https://codeberg.org/minMelody/sddm-sequoia.git"
-SDDM_THEME_NAME="sequoia"
-SDDM_THEME_PATH="/usr/share/sddm/themes/$SDDM_THEME_NAME"
-SDDM_ASSET_FOLDER="$SDDM_THEME_PATH/backgrounds"
-
-# -----------------------------------------------------
 # Error tracking
 # -----------------------------------------------------
 FAILED_STEPS=()
@@ -25,12 +13,12 @@ FAILED_STEPS=()
 source "$(pwd)/lib/packages.sh"
 source "$(pwd)/lib/aur.sh"
 source "$(pwd)/lib/nvidia.sh"
+source "$(pwd)/lib/wallpapers.sh"
+source "$(pwd)/lib/zsh.sh"
+source "$(pwd)/lib/dotfiles.sh"
 source "$(pwd)/lib/sddm.sh"
 source "$(pwd)/lib/node.sh"
 source "$(pwd)/lib/mongodb.sh"
-source "$(pwd)/lib/zsh.sh"
-source "$(pwd)/lib/dotfiles.sh"
-source "$(pwd)/lib/wallpapers.sh"
 
 # -----------------------------------------------------
 # Execute sub-scripts

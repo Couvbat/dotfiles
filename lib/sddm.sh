@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Initialize variables
+SDDM_THEME_REPO="https://codeberg.org/minMelody/sddm-sequoia.git"
+SDDM_THEME_NAME="sequoia"
+SDDM_THEME_PATH="/usr/share/sddm/themes/$SDDM_THEME_NAME"
+SDDM_ASSET_FOLDER="$SDDM_THEME_PATH/backgrounds"
+WALLPAPERS_DIR="$(pwd)/share/wallpapers"
+
 setup_sddm() {
     figlet "SDDM"
 
