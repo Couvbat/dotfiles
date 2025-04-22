@@ -31,7 +31,25 @@ _installAurPackages() {
     fi
 }
 
+_installParu() {
+    _installPackages "base-devel"
+    SCRIPT=$(realpath "$0")
+    temp_path=$(dirname "$SCRIPT")
+    git clone https://aur.archlinux.org/paru.git "${temp_path}/paru"
+    cd "${temp_path}/paru" || exit
+    makepkg -si --noconfirm
+    cd .. && rm -rf paru
+}
+
 install_aur_packages() {
+    # Ensure paru is installed
+    if ! _checkCommandExists "paru"; then
+        _installParu
+        echo ":: paru has been installed successfully."
+    else
+        echo ":: paru is already installed."
+    fi
+
     aurPackages=(
         "checkupdates-with-aur"
         "nautilus-open-any-terminal"
