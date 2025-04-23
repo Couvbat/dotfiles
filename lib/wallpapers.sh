@@ -3,20 +3,21 @@
 # Initialize variables
 WALLPAPER_REPO="https://github.com/couvbat/wallpapers.git"
 TMP_DIR="$HOME/tmp/wallpapers"
-WALLPAPERS_DIR="$TMP_DIR/share"
+WALLPAPERS_DIR="$TMP_DIR/share/wallpapers"
 TARGET_DIR="$HOME/Wallpapers"
 
 setup_wallpapers() {
     figlet "Wallpapers"
 
-    # Clone the wallpapers repository into a temporary directory
-    if [ ! -d "$TMP_DIR" ]; then
-        echo ":: Cloning wallpapers repository"
-        git clone "$WALLPAPER_REPO" "$TMP_DIR"
-    else
-        echo ":: Wallpapers repository already exists, pulling latest changes"
-        git -C "$TMP_DIR" pull
+    # Ensure the temporary directory is clean
+    if [ -d "$TMP_DIR" ]; then
+        echo ":: Cleaning up existing temporary directory"
+        rm -rf "$TMP_DIR"
     fi
+
+    # Clone the wallpapers repository into a temporary directory
+    echo ":: Cloning wallpapers repository"
+    git clone "$WALLPAPER_REPO" "$TMP_DIR"
 
     # Ensure the target wallpaper directory exists
     if [ ! -d "$TARGET_DIR" ]; then
