@@ -37,7 +37,7 @@ setup_sddm() {
 
     # Copy the wallpaper from our share directory to SDDM theme
     echo ":: Copying wallpaper to SDDM theme"
-    sudo cp "$WALLPAPERS_DIR/Solitary-Glow.png" "$SDDM_ASSET_FOLDER/current_wallpaper.jpg"
+    sudo cp "$SDDM_WALLPAPERS_DIR/Solitary-Glow.png" "$SDDM_ASSET_FOLDER/current_wallpaper.jpg"
     echo ":: Default wallpaper copied to SDDM theme folder"
 
     # Copy our SDDM configurations
