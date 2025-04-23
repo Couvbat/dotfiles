@@ -3,7 +3,7 @@
 # Initialize variables
 WALLPAPER_REPO="https://github.com/couvbat/wallpapers.git"
 TMP_DIR="~/tmp/wallpapers"
-WALLPAPERS_DIR="$TMP_DIR/share/wallpapers"
+WALLPAPERS_DIR="$TMP_DIR/share"
 TARGET_DIR="~/Wallpapers"
 
 setup_wallpapers() {
