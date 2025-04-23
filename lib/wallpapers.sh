@@ -2,35 +2,45 @@
 
 # Initialize variables
 WALLPAPER_REPO="https://github.com/couvbat/wallpapers.git"
-WALLPAPERS_DIR="$HOME/Wallpapers/share"
+WALLPAPERS_DIR="$HOME/wallpapers/share"
 
 
 setup_wallpapers() {
     figlet "Wallpapers"
 
     # Clone the wallpapers repository if not already cloned
-    if [ ! -d "$HOME/Wallpapers" ]; then
+    if [ ! -d "$HOME/wallpapers" ]; then
         echo ":: Cloning wallpapers repository"
-        git clone "$WALLPAPER_REPO" "$HOME/Wallpapers"
+        git clone "$WALLPAPER_REPO" "$HOME"
     else
         echo ":: Wallpapers repository already exists, pulling latest changes"
-        git -C "$HOME/Wallpapers" pull
+        git -C "$HOME/wallpapers" pull
     fi
 
     # Ensure the target wallpaper directory exists
-    if [ ! -d "$HOME/wallpaper" ]; then
-        mkdir -p "$HOME/wallpaper"
+    if [ ! -d "$HOME/Wallpapers" ]; then
+        mkdir -p "$HOME/Wallpapers"
     fi
 
     # Copy wallpapers from the cloned repository
     if [ -d "$WALLPAPERS_DIR" ]; then
-        cp -r "$WALLPAPERS_DIR"/* "$HOME/wallpaper/"
-        echo ":: Wallpapers copied to $HOME/wallpaper/"
+        cp -r "$WALLPAPERS_DIR"/* "$HOME/Wallpapers/"
+        echo ":: Wallpapers copied to $HOME/Wallpapers/"
     else
         echo "Wallpapers directory not found in the repository: $WALLPAPERS_DIR"
         FAILED_STEPS+=("Wallpapers copy failed")
     fi
 
+    # Delete the wallpapers repo
+    if [ -d "$HOME/wallpapers" ]; then
+        rm -rf "$HOME/wallpapers"
+        echo ":: Deleted wallpapers repository"
+    else
+        echo "Wallpapers repository not found: $HOME/wallpapers"
+        FAILED_STEPS+=("Wallpapers repo deletion failed")
+    fi
+
+    # Set the default wallpaper
     default_wallpaper="$HOME/wallpaper/Solitary-Glow.png"
     mkdir -p "$HOME/.config/ml4w/cache"
     echo "$default_wallpaper" > "$HOME/.config/ml4w/cache/current_wallpaper"
