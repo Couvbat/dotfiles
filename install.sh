@@ -26,7 +26,7 @@ source "$(pwd)/lib/mongodb.sh"
 # -----------------------------------------------------
 install_packages
 install_aur_packages
-configure_nvidia
+# configure_nvidia
 setup_wallpapers
 setup_sddm
 setup_zsh
