@@ -2,9 +2,9 @@
 
 # Initialize variables
 WALLPAPER_REPO="https://github.com/couvbat/wallpapers.git"
-TMP_DIR="~/tmp"
+TMP_DIR="$HOME/tmp"
 WALLPAPERS_DIR="$TMP_DIR/share"
-TARGET_DIR="~/Wallpapers"
+TARGET_DIR="$HOME/Wallpapers"
 
 setup_wallpapers() {
     figlet "Wallpapers"
