@@ -60,6 +60,7 @@ install_aur_packages() {
         "pacseek"
         "python-screeninfo"
         "python-pywalfox"
+        "walcord"
         "wlogout"
         "waypaper"
         "vesktop-bin"
