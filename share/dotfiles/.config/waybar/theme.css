@@ -4,42 +4,45 @@
   br - border
 */
 
+/* Import Pywal colors */
+@import url("/home/couv/.cache/wal/colors-waybar.css");
+
 /* Main Colors */
 
-@define-color main-fg         #cdd6f4;
-@define-color main-bg         #11111b;
-@define-color main-br         #cdd6f4;
+@define-color main-fg         @foreground;
+@define-color main-bg         @background;
+@define-color main-br         @foreground;
 
-@define-color active-bg       #9399b2;
-@define-color active-fg       #11111b;
+@define-color active-bg       @color6;
+@define-color active-fg       @color0;
 
-@define-color hover-bg        #313244;
-@define-color hover-fg        rgba(205, 214, 244, 0.75);
+@define-color hover-bg        @color0;
+@define-color hover-fg        @color6;
 
-@define-color white           #ffffff;
-@define-color black           #000000;
+@define-color white           @color15;
+@define-color black           @color0;
 
 /* Module Colors */
 
-@define-color module-fg       #f5e0dc;
-@define-color workspaces      #181825;
+@define-color module-fg       @color5;
+@define-color workspaces      @color1;
 
-@define-color cpuinfo         #181825;
-@define-color memory          #1e1e2e;
-@define-color cpu             #313244;
-@define-color distro-fg       #000000;
-@define-color distro-bg       #9399b2;
-@define-color time            #313244;
-@define-color date            #1e1e2e;
-@define-color tray            #181825;
+@define-color cpuinfo         @color1;
+@define-color memory          @color2;
+@define-color cpu             @color3;
+@define-color distro-fg       @color5;
+@define-color distro-bg       @color8;
+@define-color time            @color3;
+@define-color date            @color2;
+@define-color tray            @color1;
 
-@define-color pulseaudio      #181825;
-@define-color backlight       #1e1e2e;
-@define-color battery         #313244;
-@define-color power           #9399b2;
+@define-color pulseaudio      @color1;
+@define-color backlight       @color2;
+@define-color battery         @color3;
+@define-color power           @color8;
 
 /* State Colors */
 
-@define-color warning         #f9e2af;
-@define-color critical        #f38ba8;
-@define-color charging        #cdd6f4;
+@define-color warning         @color11;
+@define-color critical        @color9;
+@define-color charging        @foreground;

@@ -1,16 +1,16 @@
 # Auto-generated Superfile theme based on pywal colors
-# Last updated: lun. 07 avril 2025 16:07:09 CEST
+# Last updated: mer. 23 avril 2025 19:52:51 CEST
 
 # ========= Border =========
-file_panel_border = "#797f80"
-sidebar_border = "#061C24"
-footer_border = "#797f80"
+file_panel_border = "#B1603C"
+sidebar_border = "#66787A"
+footer_border = "#66787A"
 
 # ========= Border Active =========
-file_panel_border_active = "#66787A"
-sidebar_border_active = "#45585B"
-footer_border_active = "#495D60"
-modal_border_active = "#adb6b7"
+file_panel_border_active = "#E78446"
+sidebar_border_active = "#E78446"
+footer_border_active = "#E78446"
+modal_border_active = "#E78446"
 
 # ========= Background (bg) =========
 full_screen_bg = "#061C24"
@@ -20,11 +20,11 @@ footer_bg = "#061C24"
 modal_bg = "#061C24"
 
 # ========= Foreground (fg) =========
-full_screen_fg = "#adb6b7"
-file_panel_fg = "#adb6b7"
-sidebar_fg = "#adb6b7"
-footer_fg = "#adb6b7"
-modal_fg = "#adb6b7"
+full_screen_fg = "#45585B"
+file_panel_fg = "#45585B"
+sidebar_fg = "#45585B"
+footer_fg = "#45585B"
+modal_fg = "#45585B"
 
 # ========= Special Color =========
 cursor = "#adb6b7"
