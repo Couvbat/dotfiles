@@ -120,6 +120,7 @@ install_packages() {
         "noto-fonts-emoji"
         "noto-fonts-cjk"
         "noto-fonts-extra"
+        "cmatrix"
     )
     _installPackages "${installer_packages[@]}"
     sudo systemctl enable NetworkManager.service

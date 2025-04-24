@@ -72,6 +72,7 @@ install_aur_packages() {
         "postman-bin"
         "smile"
         "wormhole-rs"
+        "cbonsai"
     )
     _installAurPackages "${aurPackages[@]}"
 }
