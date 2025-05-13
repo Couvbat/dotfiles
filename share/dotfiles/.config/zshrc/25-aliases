@@ -59,9 +59,10 @@ alias setkb='setxkbmap de;echo "Keyboard set back to de."'
 # -----------------------------------------------------
 # User Aliases
 # -----------------------------------------------------
-alias code='code --disable-gpu'
-alias discord='vesktop --disable-gpu'
+alias code='code --ozone-platform=x11'
+alias discord='vesktop --ozone-platform=x11'
 alias bonsai='cbonsai -i -l -t 0,2 -m In-leed -S'
 alias matrix='cmatrix -ab -C red'
-alias cat='bat'
-alias ping='gping'
+alias mail='aerc'
+alias trash='sudo rm -rf ~/.local/share/Trash/*'
+

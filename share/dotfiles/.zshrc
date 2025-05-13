@@ -34,3 +34,9 @@ done
 if [ -f ~/.zshrc_custom ]; then
     source ~/.zshrc_custom
 fi
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Created by `pipx` on 2025-04-28 14:01:06
+export PATH="$PATH:/home/couv/.local/bin"
